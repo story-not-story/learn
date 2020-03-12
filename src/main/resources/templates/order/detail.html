@@ -48,13 +48,13 @@
                     </table>
                     <ul class="pagination" >
                         <li th:class="${currentPage} eq 1? 'disabled' : 'active'">
-                            <a href="#" th:href="${currentPage} eq 1? @{#} : @{${url}(page=${currentPage - 1},size=${size})}">Prev</a>
+                            <a href="#" th:href="${currentPage} eq 1? @{#} : @{${url}(orderId=${order.orderId},page=${currentPage - 1},size=${size})}">Prev</a>
                         </li>
-                        <li th:each="page : ${#numbers.sequence(1,orderPage.getTotalPages())}" th:class="${currentPage} eq ${page}? 'disabled' : 'active'">
-                            <a href="#" th:href="${currentPage} eq ${page}? @{#} : @{${url}(page=${page},size=${size})}" th:text="${page}">1</a>
+                        <li th:each="page : ${#numbers.sequence(1,order.getTotalPages())}" th:class="${currentPage} eq ${page}? 'disabled' : 'active'">
+                            <a href="#" th:href="${currentPage} eq ${page}? @{#} : @{${url}(orderId=${order.orderId},page=${page},size=${size})}" th:text="${page}">1</a>
                         </li>
-                        <li th:class="${currentPage} eq ${orderPage.getTotalPages()}? 'disabled' : 'active'">
-                            <a href="#" th:href="${currentPage} eq ${orderPage.getTotalPages()}? @{#} : @{${url}(page=${currentPage + 1},size=${size})}">Next</a>
+                        <li th:class="${currentPage} eq ${order.getTotalPages()}? 'disabled' : 'active'">
+                            <a href="#" th:href="${currentPage} eq ${order.getTotalPages()}? @{#} : @{${url}(orderId=${order.orderId},page=${currentPage + 1},size=${size})}">Next</a>
                         </li>
                     </ul>
                 </div>

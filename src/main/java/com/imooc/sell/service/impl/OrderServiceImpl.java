@@ -100,6 +100,7 @@ public class OrderServiceImpl implements OrderService {
             log.error("【查找订单】订单详情不存在");
             throw new SellException(ErrorCode.ORDER_DETAIL_NOT_EXISTS);
         }
+        order.setTotalPages(detailPage.getTotalPages());
         order.setOrderDetailList(detailPage.getContent());
         return order;
     }

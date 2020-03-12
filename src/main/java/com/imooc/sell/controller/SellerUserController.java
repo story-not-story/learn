@@ -71,11 +71,11 @@ public class SellerUserController {
         String token = UUID.randomUUID().toString();
         redisTemplate.opsForValue().setIfAbsent(String.format(RedisConstant.TOKEN, token), openid);
         CookieUtil.set(response, CookieUtil.TOKEN, token, CookieUtil.EXPIRE);
-        return new ModelAndView("redirect:" + projectUrlConfig.getSell() + "/sell/seller/order/list");
+        return new ModelAndView("redirect:" + projectUrlConfig.getSell() + "/order/list");
     }
 
     @GetMapping("/logout")
-    public ModelAndView logout(@RequestParam String openid, HttpServletRequest request, HttpServletResponse response){
+    public ModelAndView logout(HttpServletRequest request, HttpServletResponse response){
         Cookie cookie = CookieUtil.get(request, CookieUtil.TOKEN);
         if (cookie == null){
             log.error("【用户登出】用户已登出");

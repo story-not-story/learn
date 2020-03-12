@@ -1,6 +1,7 @@
 package com.imooc.sell.service;
 
 import com.imooc.sell.entity.ProductInfo;
+import com.imooc.sell.form.ProductForm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -36,10 +37,10 @@ public interface ProductService {
     /**
      * 保存商品详情
      *
-     * @param productInfo
+     * @param productForm
      * @return ProductInfo
      */
-    ProductInfo save(ProductInfo productInfo);
+    ProductInfo save(ProductForm productForm);
     ProductInfo offSale(String id);
     ProductInfo onSale(String id);
 

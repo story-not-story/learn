@@ -2,9 +2,9 @@ package com.imooc.sell.entity;
 
 import com.imooc.sell.enums.ProductStatus;
 import com.imooc.sell.util.converter.Code2Enum;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Column;
@@ -16,6 +16,7 @@ import java.util.Date;
 @Entity
 @Data
 @NoArgsConstructor
+@DynamicInsert
 @DynamicUpdate
 public class ProductInfo {
     @Id
@@ -45,7 +46,7 @@ public class ProductInfo {
     private Date createTime;
 
     private Date updateTime;
-    public ProductStatus getStatusByCode(Integer code){
-        return Code2Enum.convert(code, ProductStatus.class);
+    public ProductStatus getStatusEnum(){
+        return Code2Enum.convert(status, ProductStatus.class);
     }
 }

@@ -10,16 +10,16 @@
         <div class="container">
             <div class="row clearfix">
                 <div class="col-md-12 column">
-                    <form role="form" th:action="${url}" method="post">
+                    <form role="form" th:action="'/sell' + ${url}" method="post">
                         <div class="form-group">
                             <label>name</label>
-                            <input type="text" class="form-control" th:value="${category.name}" id="name" placeholder="名字"/>
+                            <input type="text" class="form-control" th:value="${category.name}" name="name" placeholder="名字"/>
                         </div>
                         <div class="form-group">
                             <label>type</label>
-                            <input type="number" class="form-control" th:value="${category.type}" id="type" placeholder="type"/>
+                            <input type="number" class="form-control" th:value="${category.type}" name="type" placeholder="type"/>
                         </div>
-                        <input type="number" class="form-control" th:value="${category.id}" id="id" placeholder="id" hidden/>
+                        <input type="hidden" class="form-control" th:value="${category.id}" name="id" placeholder="id"/>
                         <button type="submit" class="btn btn-default">提交</button>
                     </form>
                 </div>

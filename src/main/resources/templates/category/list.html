@@ -37,10 +37,10 @@
                             <a href="#" th:href="${categoryPage.getNumber()} + 1 eq 1? @{#} : @{${url} + '/list'(page=${categoryPage.getNumber()},size=${categoryPage.size})}">Prev</a>
                         </li>
                         <li th:each="page : ${#numbers.sequence(1,categoryPage.getTotalPages())}" th:class="${categoryPage.getNumber()} + 1 eq ${page}? 'disabled' : 'active'">
-                            <a href="#" th:href="${categoryPage.getNumber()} + 1 eq ${page}? @{#} : @{${url} + 'list'(page=${page},size=${categoryPage.size})}" th:text="${page}">1</a>
+                            <a href="#" th:href="${categoryPage.getNumber()} + 1 eq ${page}? @{#} : @{${url} + '/list'(page=${page},size=${categoryPage.size})}" th:text="${page}">1</a>
                         </li>
                         <li th:class="${categoryPage.getNumber()} + 1 eq ${categoryPage.getTotalPages()}? 'disabled' : 'active'">
-                            <a href="#" th:href="${categoryPage.getNumber()} + 1 eq ${categoryPage.getTotalPages()}? @{#} : @{${url} + 'list'(page=${categoryPage.getNumber() + 2},size=${categoryPage.size})}">Next</a>
+                            <a href="#" th:href="${categoryPage.getNumber()} + 1 eq ${categoryPage.getTotalPages()}? @{#} : @{${url} + '/list'(page=${categoryPage.getNumber() + 2},size=${categoryPage.size})}">Next</a>
                         </li>
                     </ul>
                 </div>

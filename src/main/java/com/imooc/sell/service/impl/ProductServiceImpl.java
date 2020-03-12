@@ -4,9 +4,13 @@ import com.imooc.sell.entity.ProductInfo;
 import com.imooc.sell.enums.ErrorCode;
 import com.imooc.sell.enums.ProductStatus;
 import com.imooc.sell.exception.SellException;
+import com.imooc.sell.form.ProductForm;
 import com.imooc.sell.repository.ProductInfoRepository;
 import com.imooc.sell.service.ProductService;
+import com.imooc.sell.util.KeyUtil;
+import com.mysql.cj.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,7 +43,24 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductInfo save(ProductInfo productInfo) {
+    @Transactional
+    public ProductInfo save(ProductForm productForm) {
+        ProductInfo productInfo = new ProductInfo();
+        if (!StringUtils.isNullOrEmpty(productForm.getId())){
+            productInfo = findOne(productForm.getId());
+            if (productInfo == null){
+                log.error("【修改商品】商品不存在");
+                throw new SellException(ErrorCode.PRODUCT_NOT_EXISTS);
+            }
+        } else {
+            productForm.setId(KeyUtil.getUniqueKey());
+        }
+        BeanUtils.copyProperties(productForm, productInfo);
+        if (ProductStatus.UP.getMsg().equals(productForm.getStatusMsg())){
+            productInfo.setStatus(ProductStatus.UP.getCode());
+        } else {
+            productInfo.setStatus(ProductStatus.DOWN.getCode());
+        }
         return productInfoRepository.save(productInfo);
     }
 

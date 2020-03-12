@@ -29,7 +29,7 @@
                             <tr th:each="product : ${productPage.content}">
                                 <td th:text="${product.id}">商品id</td>
                                 <td th:text="${product.name}">名称</td>
-                                <td th:text="${product.icon}">图片</td>
+                                <td><img th:src="${product.icon}" th:alt="${product.name}" width="30px" height="30px"></td>
                                 <td th:text="${product.price}">单价</td>
                                 <td th:text="${product.stock}">库存</td>
                                 <td th:text="${product.description}">描述</td>
@@ -37,7 +37,7 @@
                                 <td th:text="${product.createTime}">创建时间</td>
                                 <td th:text="${product.updateTime}">修改时间</td>
                                 <td><a th:href="@{${url} + '/index'(productId=${product.id})}">修改</a></td>
-                                <td><a th:href="@{${url} + (${product.getStatusByCode(product.status)}.msg eq '下架'? '/onsale' : '/offsale')(productId=${product.id})}" th:text="${product.getStatusByCode(product.status)}.msg eq '下架'? '上架' : '下架'">上架</a></td>
+                                <td><a th:href="@{${url} + (${product.getStatusEnum().msg} eq '下架'? '/onsale' : '/offsale')(productId=${product.id})}" th:text="${product.getStatusEnum().msg} eq '下架'? '上架' : '下架'">上架</a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -46,10 +46,10 @@
                             <a href="#" th:href="${productPage.getNumber()} + 1 eq 1? @{#} : @{${url} + '/list'(page=${productPage.getNumber()},size=${productPage.size})}">Prev</a>
                         </li>
                         <li th:each="page : ${#numbers.sequence(1,productPage.getTotalPages())}" th:class="${productPage.getNumber()} + 1 eq ${page}? 'disabled' : 'active'">
-                            <a href="#" th:href="${productPage.getNumber()} + 1 eq ${page}? @{#} : @{${url} + 'list'(page=${page},size=${productPage.size})}" th:text="${page}">1</a>
+                            <a href="#" th:href="${productPage.getNumber()} + 1 eq ${page}? @{#} : @{${url} + '/list'(page=${page},size=${productPage.size})}" th:text="${page}">1</a>
                         </li>
                         <li th:class="${productPage.getNumber()} + 1 eq ${productPage.getTotalPages()}? 'disabled' : 'active'">
-                            <a href="#" th:href="${productPage.getNumber()} + 1 eq ${productPage.getTotalPages()}? @{#} : @{${url} + 'list'(page=${productPage.getNumber() + 2},size=${productPage.size})}">Next</a>
+                            <a href="#" th:href="${productPage.getNumber()} + 1 eq ${productPage.getTotalPages()}? @{#} : @{${url} + '/list'(page=${productPage.getNumber() + 2},size=${productPage.size})}">Next</a>
                         </li>
                     </ul>
                 </div>

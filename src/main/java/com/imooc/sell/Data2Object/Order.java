@@ -5,6 +5,7 @@ import com.imooc.sell.enums.OrderStatus;
 import com.imooc.sell.enums.PayStatus;
 import com.imooc.sell.util.converter.Code2Enum;
 import lombok.Data;
+import org.springframework.lang.Nullable;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -30,13 +31,16 @@ public class Order {
 
     private List<OrderDetail> orderDetailList;
 
+    @Nullable
+    private Integer totalPages;
+
     private Date createTime;
 
     private Date updateTime;
-    public OrderStatus getOrderStatusByCode(Integer code){
-        return Code2Enum.convert(code, OrderStatus.class);
+    public OrderStatus getOrderStatusEnum(){
+        return Code2Enum.convert(orderStatus, OrderStatus.class);
     }
-    public PayStatus getPayStatusByCode(Integer code){
-        return Code2Enum.convert(code, PayStatus.class);
+    public PayStatus getPayStatusEnum(){
+        return Code2Enum.convert(payStatus, PayStatus.class);
     }
 }

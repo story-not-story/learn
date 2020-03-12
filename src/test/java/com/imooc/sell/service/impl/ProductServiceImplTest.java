@@ -1,6 +1,7 @@
 package com.imooc.sell.service.impl;
 
 import com.imooc.sell.entity.ProductInfo;
+import com.imooc.sell.form.ProductForm;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,16 +44,16 @@ public class ProductServiceImplTest {
     @Test
     @Transactional
     public void insert() {
-        ProductInfo productInfo = new ProductInfo();
-        productInfo.setId("1320");
-        productInfo.setCategoryType(10);
-        productInfo.setDescription("美味营养");
-        productInfo.setIcon("http://3.jpg");
-        productInfo.setName("玉米粥");
-        productInfo.setPrice(BigDecimal.valueOf(9.5));
-        productInfo.setStatus(0);
-        productInfo.setStock(1000);
-        ProductInfo result = productService.save(productInfo);
+        ProductForm productForm = new ProductForm();
+        productForm.setId("1320");
+        productForm.setCategoryType(10);
+        productForm.setDescription("美味营养");
+        productForm.setIcon("http://3.jpg");
+        productForm.setName("玉米粥");
+        productForm.setPrice(BigDecimal.valueOf(9.5));
+        productForm.setStatusMsg("在架");
+        productForm.setStock(1000);
+        ProductInfo result = productService.save(productForm);
         Assert.assertNotNull(result);
     }
 }

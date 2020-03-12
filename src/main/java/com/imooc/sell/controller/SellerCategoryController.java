@@ -31,13 +31,13 @@ public class SellerCategoryController {
         Page<ProductCategory> categoryPage = categoryService.findAll(pageRequest);
         Map<String, Object> map = new HashMap<>();
         map.put("categoryPage", categoryPage);
-        map.put("url", urlConfig.getSell() + "/sell/seller/category");
+        map.put("url", urlConfig.getSell() + "/category");
         return new ModelAndView("category/list", map);
     }
     @PostMapping("/save")
     public ModelAndView save(ProductCategory category){
         categoryService.save(category);
-        return new ModelAndView("redirect:" + urlConfig.getSell() + "/sell/seller/category/list");
+        return new ModelAndView("redirect:" + urlConfig.getSell() + "/category/list");
     }
     @GetMapping("/index")
     public ModelAndView index(@RequestParam(required = false) Integer categoryId){
@@ -50,7 +50,7 @@ public class SellerCategoryController {
             }
         }
         Map<String, Object> map = new HashMap<>();
-        map.put("url", urlConfig.getSell() + "/sell/seller/category/save");
+        map.put("url", urlConfig.getSell() + "/category/save");
         map.put("category", category);
         return new ModelAndView("category/index", map);
     }

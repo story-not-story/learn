@@ -33,7 +33,7 @@ public class SellerOrderController {
         PageRequest pageRequest = PageRequest.of(page - 1, size);
         Page<Order> orderPage = orderService.findAll(pageRequest);
         Map<String, Object> map = new HashMap<>();
-        map.put("url", urlConfig.getSell() + "/sell/seller/order");
+        map.put("url", urlConfig.getSell() + "/order");
         map.put("orderPage", orderPage);
         return new ModelAndView("order/list", map);
     }
@@ -45,7 +45,7 @@ public class SellerOrderController {
             throw new SellException(ErrorCode.ORDER_NOT_EXISTS);
         }
         orderService.cancel(order);
-        return new ModelAndView("redirect:" + urlConfig.getSell() + "/sell/seller/order/list");
+        return new ModelAndView("redirect:" + urlConfig.getSell() + "/order/list");
     }
     @GetMapping("/finish")
     public ModelAndView finish(@RequestParam String orderId) throws Exception {
@@ -55,7 +55,7 @@ public class SellerOrderController {
             throw new SellException(ErrorCode.ORDER_NOT_EXISTS);
         }
         orderService.finish(order);
-        return new ModelAndView("redirect:" + urlConfig.getSell() + "/sell/seller/order/list");
+        return new ModelAndView("redirect:" + urlConfig.getSell() + "/order/list");
     }
     @GetMapping("/detail")
     public ModelAndView detail(@RequestParam String orderId, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "2") int size) throws Exception {
@@ -66,9 +66,9 @@ public class SellerOrderController {
             throw new SellException(ErrorCode.ORDER_NOT_EXISTS);
         }
         Map<String, Object> map = new HashMap<>();
-        map.put("currentPge", page);
+        map.put("currentPage", page);
         map.put("size", size);
-        map.put("url", urlConfig.getSell() + "/sell/seller/order/detail");
+        map.put("url", urlConfig.getSell() + "/order/detail");
         map.put("order", order);
         return new ModelAndView("order/detail", map);
     }

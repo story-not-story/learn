@@ -4,10 +4,13 @@ import com.imooc.sell.Data2Object.Order;
 import com.imooc.sell.config.ProjectUrlConfig;
 import com.imooc.sell.entity.ProductInfo;
 import com.imooc.sell.enums.ErrorCode;
+import com.imooc.sell.enums.ProductStatus;
 import com.imooc.sell.exception.SellException;
+import com.imooc.sell.form.ProductForm;
 import com.imooc.sell.service.ProductService;
 import com.imooc.sell.util.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,29 +35,28 @@ public class SellerProductController {
         PageRequest pageRequest = PageRequest.of(page - 1, size);
         Page<ProductInfo> productInfoPage = productService.findAll(pageRequest);
         Map<String, Object> map = new HashMap<>();
-        map.put("url", urlConfig.getSell() + "/sell/seller/product");
+        map.put("url", urlConfig.getSell() + "/product");
         map.put("productPage", productInfoPage);
         return new ModelAndView("product/list", map);
     }
     @PostMapping("/save")
-    public ModelAndView save(@Valid ProductInfo productInfo){
-        productService.save(productInfo);
-        return new ModelAndView("redirect:" + urlConfig.getSell() +  "/sell/seller/product/list");
+    public ModelAndView save(@Valid ProductForm productForm){
+        productService.save(productForm);
+        return new ModelAndView("redirect:" + urlConfig.getSell() +  "/product/list");
     }
     @GetMapping("/offsale")
     public ModelAndView offsale(@RequestParam String productId){
         productService.offSale(productId);
-        return new ModelAndView("redirect:" + urlConfig.getSell() +  "/sell/seller/product/list");
+        return new ModelAndView("redirect:" + urlConfig.getSell() +  "/product/list");
     }
     @GetMapping("/onsale")
     public ModelAndView onsale(@RequestParam String productId){
         productService.onSale(productId);
-        return new ModelAndView("redirect:" + urlConfig.getSell() +  "/sell/seller/product/list");
+        return new ModelAndView("redirect:" + urlConfig.getSell() +  "/product/list");
     }
     @GetMapping("/index")
     public ModelAndView index(@RequestParam(required = false) String productId){
         ProductInfo productInfo = new ProductInfo();
-        productInfo.setId(KeyUtil.getUniqueKey());
         if (productId != null){
             productInfo = productService.findOne(productId);
             if (productInfo == null){
@@ -63,7 +65,7 @@ public class SellerProductController {
             }
         }
         Map<String, Object> map = new HashMap<>();
-        map.put("url", urlConfig.getSell() + "/sell/seller/product/save");
+        map.put("url", urlConfig.getSell() + "/product/save");
         map.put("product", productInfo);
         return new ModelAndView("/product/index", map);
     }

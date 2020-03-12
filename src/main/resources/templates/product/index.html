@@ -10,36 +10,36 @@
         <div class="container">
             <div class="row clearfix">
                 <div class="col-md-12 column">
-                    <form role="form" th:action="${url}" method="post">
+                    <form role="form" th:action="'/sell' + ${url}" method="post">
                         <div class="form-group">
                             <label>name</label>
-                            <input type="text" class="form-control" th:value="${product.name}" id="name" placeholder="名字"/>
+                            <input type="text" class="form-control" th:value="${product.name}" name="name" placeholder="名字"/>
                         </div>
                         <div class="form-group">
                             <label>price</label>
-                            <input type="number" class="form-control" th:value="${product.price}" id="price" placeholder="价格"/>
+                            <input type="number" class="form-control" th:value="${product.price}" name="price" placeholder="价格"/>
                         </div>
                         <div class="form-group">
                             <label>stock</label>
-                            <input type="number" class="form-control" th:value="${product.stock}" id="stock" placeholder="库存"/>
+                            <input type="number" class="form-control" th:value="${product.stock}" name="stock" placeholder="库存"/>
                         </div>
                         <div class="form-group">
                             <label>description</label>
-                            <input type="text" class="form-control" th:value="${product.description}" id="description" placeholder="描述"/>
+                            <input type="text" class="form-control" th:value="${product.description}" name="description" placeholder="描述"/>
                         </div>
                         <div class="form-group">
                             <label>icon</label>
-                            <input type="text" class="form-control" th:value="${product.icon}" id="icon" placeholder="图片"/>
+                            <input type="text" class="form-control" th:value="${product.icon}" name="icon" placeholder="图片"/>
                         </div>
                         <div class="form-group">
                             <label>status</label>
-                            <input type="number" class="form-control" th:value="${product.status}" id="status" placeholder="商品状态"/>
+                            <input type="text" class="form-control" th:value="${product.status} neq null? ${product.getStatusEnum().msg}" name="statusMsg" placeholder="商品状态"/>
                         </div>
                         <div class="form-group">
                             <label>categoryType</label>
-                            <input type="number" class="form-control" th:value="${product.categoryType}" id="categoryType" placeholder="类目编号"/>
+                            <input type="number" class="form-control" th:value="${product.categoryType}" name="categoryType" placeholder="类目编号"/>
                         </div>
-                        <input type="text" class="form-control" th:value="${product.id}" id="id" placeholder="id" hidden/>
+                        <input type="hidden" class="form-control" th:value="${product.id}" name="id" placeholder="id"/>
                         <button type="submit" class="btn btn-default">提交</button>
                     </form>
                 </div>
