@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+    <head th:replace="~{common/header :: header}">
+    </head>
+
+    <body>
+        <nav th:replace="~{common/navigator :: navigator}"></nav>
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-md-12 column">
+                    <table class="table table-condensed table-bordered">
+                        <thead>
+                            <tr>
+                                <th>订单id</th>
+                                <th>姓名</th>
+                                <th>手机号</th>
+                                <th>地址</th>
+                                <th>金额</th>
+                                <th>订单状态</th>
+                                <th>支付状态</th>
+                                <th>创建时间</th>
+                                <th>更新时间</th>
+                                <th colspan="3">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="order : ${orderPage.content}">
+                                <td th:text="${order.orderId}">订单id</td>
+                                <td th:text="${order.buyerName}">姓名</td>
+                                <td th:text="${order.buyerPhone}">手机号</td>
+                                <td th:text="${order.buyerAddress}">地址</td>
+                                <td th:text="${order.orderAmount}">金额</td>
+                                <td th:text="${order.orderStatus}">订单状态</td>
+                                <td th:text="${order.payStatus}">支付状态</td>
+                                <td th:text="${order.createTime}">创建时间</td>
+                                <td th:text="${order.updateTime}">更新时间</td>
+                                <td><a th:href="@{${url} + '/detail'(orderId=${order.orderId})}">详情</a></td>
+                                <td><a th:href="@{${url} + '/finish'(orderId=${order.orderId})}" th:if="${order.getOrderStatusByCode(order.orderStatus)}.msg eq '新订单'">完结</a></td>
+                                <td><a th:href="@{${url} + '/cancel'(orderId=${order.orderId})}" th:if="${order.getOrderStatusByCode(order.orderStatus)}.msg eq '新订单'">取消</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ul class="pagination" >
+                        <li th:class="${orderPage.getNumber()} + 1 eq 1? 'disabled' : 'active'">
+                            <a href="#" th:href="${orderPage.getNumber()} + 1 eq 1? @{#} : @{${url} + '/list'(page=${orderPage.getNumber()},size=${orderPage.size})}">Prev</a>
+                        </li>
+                        <li th:each="page : ${#numbers.sequence(1,orderPage.getTotalPages())}" th:class="${orderPage.getNumber()} + 1 eq ${page}? 'disabled' : 'active'">
+                            <a href="#" th:href="${orderPage.getNumber()} + 1 eq ${page}? @{#} : @{${url} + 'list'(page=${page},size=${orderPage.size})}" th:text="${page}">1</a>
+                        </li>
+                        <li th:class="${orderPage.getNumber()} + 1 eq ${orderPage.getTotalPages()}? 'disabled' : 'active'">
+                            <a href="#" th:href="${orderPage.getNumber()} + 1 eq ${orderPage.getTotalPages()}? @{#} : @{${url} + 'list'(page=${orderPage.getNumber() + 2},size=${orderPage.size})}">Next</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>

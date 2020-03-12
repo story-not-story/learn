@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+    <head th:replace="~{common/header :: header}">
+    </head>
+
+    <body>
+        <nav th:replace="~{common/navigator :: navigator}"></nav>
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-md-12 column">
+                    <table class="table table-condensed table-bcategoryed">
+                        <thead>
+                            <tr>
+                                <th>类目id</th>
+                                <th>名字</th>
+                                <th>type</th>
+                                <th>创建时间</th>
+                                <th>修改时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="category : ${categoryPage.content}">
+                                <td th:text="${category.id}">订单id</td>
+                                <td th:text="${category.name}">名字</td>
+                                <td th:text="${category.type}">type</td>
+                                <td th:text="${category.createTime}">创建时间</td>
+                                <td th:text="${category.updateTime}">修改时间</td>
+                                <td><a th:href="@{${url} + '/index'(categoryId=${category.id})}">修改</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ul class="pagination" >
+                        <li th:class="${categoryPage.getNumber()} + 1 eq 1? 'disabled' : 'active'">
+                            <a href="#" th:href="${categoryPage.getNumber()} + 1 eq 1? @{#} : @{${url} + '/list'(page=${categoryPage.getNumber()},size=${categoryPage.size})}">Prev</a>
+                        </li>
+                        <li th:each="page : ${#numbers.sequence(1,categoryPage.getTotalPages())}" th:class="${categoryPage.getNumber()} + 1 eq ${page}? 'disabled' : 'active'">
+                            <a href="#" th:href="${categoryPage.getNumber()} + 1 eq ${page}? @{#} : @{${url} + 'list'(page=${page},size=${categoryPage.size})}" th:text="${page}">1</a>
+                        </li>
+                        <li th:class="${categoryPage.getNumber()} + 1 eq ${categoryPage.getTotalPages()}? 'disabled' : 'active'">
+                            <a href="#" th:href="${categoryPage.getNumber()} + 1 eq ${categoryPage.getTotalPages()}? @{#} : @{${url} + 'list'(page=${categoryPage.getNumber() + 2},size=${categoryPage.size})}">Next</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>

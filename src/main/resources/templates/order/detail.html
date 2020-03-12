@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+    <head th:replace="~{common/header :: header}">
+    </head>
+
+    <body>
+        <nav th:replace="~{common/navigator :: navigator}"></nav>
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-md-4 column">
+                    <table class="table table-condensed table-bordered">
+                        <thead>
+                            <tr>
+                                <th>订单id</th>
+                                <th>订单总金额</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td th:text="${order.orderId}">订单id</td>
+                                <td th:text="${order.orderAmount}">订单总金额</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-12 column">
+                    <table class="table table-condensed table-bordered">
+                        <thead>
+                            <tr>
+                                <th>商品id</th>
+                                <th>商品名称</th>
+                                <th>价格</th>
+                                <th>数量</th>
+                                <th>总额</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="detail : ${order.orderDetailList}">
+                                <td th:text="${detail.productId}">商品id</td>
+                                <td th:text="${detail.productName}">商品名称</td>
+                                <td th:text="${detail.productPrice}">价格</td>
+                                <td th:text="${detail.productQuantity}">数量</td>
+                                <td th:text="${detail.productPrice} * ${detail.productQuantity}">总额</td>
+                                </tr>
+                        </tbody>
+                    </table>
+                    <ul class="pagination" >
+                        <li th:class="${currentPage} eq 1? 'disabled' : 'active'">
+                            <a href="#" th:href="${currentPage} eq 1? @{#} : @{${url}(page=${currentPage - 1},size=${size})}">Prev</a>
+                        </li>
+                        <li th:each="page : ${#numbers.sequence(1,orderPage.getTotalPages())}" th:class="${currentPage} eq ${page}? 'disabled' : 'active'">
+                            <a href="#" th:href="${currentPage} eq ${page}? @{#} : @{${url}(page=${page},size=${size})}" th:text="${page}">1</a>
+                        </li>
+                        <li th:class="${currentPage} eq ${orderPage.getTotalPages()}? 'disabled' : 'active'">
+                            <a href="#" th:href="${currentPage} eq ${orderPage.getTotalPages()}? @{#} : @{${url}(page=${currentPage + 1},size=${size})}">Next</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>
