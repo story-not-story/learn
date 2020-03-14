@@ -50,7 +50,7 @@ public class BuyerOrderController {
             if (e instanceof SellException){
                 return ResultUtil.error(((SellException) e));
             } else {
-                return ResultUtil.error(ErrorCode.UNKNOWN_ERROR);
+                return ResultUtil.error(ErrorCode.UNKNOWN_ERROR.getCode(), e.getMessage());
             }
         }
     }
@@ -68,7 +68,7 @@ public class BuyerOrderController {
             if (e instanceof SellException){
                 return ResultUtil.error(((SellException) e));
             } else {
-                return ResultUtil.error(ErrorCode.UNKNOWN_ERROR);
+                return ResultUtil.error(ErrorCode.UNKNOWN_ERROR.getCode(), e.getMessage());
             }
         }
     }
@@ -83,7 +83,7 @@ public class BuyerOrderController {
             if (e instanceof SellException){
                 return ResultUtil.error(((SellException) e));
             } else {
-                return ResultUtil.error(ErrorCode.UNKNOWN_ERROR);
+                return ResultUtil.error(ErrorCode.UNKNOWN_ERROR.getCode(), e.getMessage());
             }
         }
     }

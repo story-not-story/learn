@@ -27,7 +27,16 @@ public enum ErrorCode {
     USER_ALREADY_LOGIN(18, "用户已登录"),
     CATEGORY_NOT_EXISTS(19, "类目不存在"),
     PRODUCT_ALREDY_DOWN(20, "商品已下架"),
-    PRODUCT_ALREDY_UP(20, "商品已上架");
+    PRODUCT_ALREDY_UP(21, "商品已上架"),
+    OPENID_FAIL(22, "获取openid失败"),
+    CODE_FAIL(23, "获取code失败"),
+    REFRESH_FAIL(24, "刷新access_token失败"),
+    USER_INFO_FAIL(25, "用户信息获取失败"),
+    PRE_ORDER_FAIL(26, "获取微信预付订单失败"),
+    REFUND_FAIL(27,"微信退款失败"),
+    NOTIFY_FAIL(28, "微信异步通知支付结果失败"),
+    ORDER_AMOUNT_ERROR(29, "微信异步通知金额校验不通过"),
+    OPENID_ERROR(30, "微信异步通知openid校验不通过");
     private Integer code;
     private String msg;
 

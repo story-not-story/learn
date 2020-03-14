@@ -2,6 +2,7 @@ package com.imooc.sell.service.impl;
 
 
 import com.imooc.sell.Data2Object.Order;
+import com.imooc.sell.controller.WebSocket;
 import com.imooc.sell.entity.OrderDetail;
 import com.imooc.sell.entity.OrderMaster;
 import com.imooc.sell.entity.ProductInfo;
@@ -13,6 +14,7 @@ import com.imooc.sell.repository.OrderDetailRepository;
 import com.imooc.sell.repository.OrderMasterRepository;
 import com.imooc.sell.service.OrderService;
 import com.imooc.sell.service.ProductService;
+import com.imooc.sell.service.PushMessageService;
 import com.imooc.sell.util.KeyUtil;
 import com.imooc.sell.util.converter.OrderMaster2Order;
 import com.mysql.cj.util.StringUtils;
@@ -46,6 +48,10 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderMasterRepository orderMasterRepository;
 
+    @Autowired
+    private PushMessageService pushMessageService;
+    @Autowired
+    private WebSocket webSocket;
     @Override
     @Transactional
     public Order create(Order order) throws Exception{
@@ -83,6 +89,7 @@ public class OrderServiceImpl implements OrderService {
             throw new SellException(ErrorCode.ORDER_UPDATE_FAIL);
         }
         productService.decrease(productInfoList);
+        webSocket.sendMessage("您有新的订单!");
         return order;
     }
 
@@ -194,6 +201,7 @@ public class OrderServiceImpl implements OrderService {
             log.error("【完结订单】更新订单状态失败");
             throw new SellException(ErrorCode.ORDER_STATUS_UPDATE_FAIL);
         }
+        pushMessageService.orderStatus(order);
         return order;
     }
 

@@ -25,7 +25,10 @@ public class OrderForm2Order {
             throw new SellException(ErrorCode.PARAM_ERROR);
         }
         Order order = new Order();
-        BeanUtils.copyProperties(orderForm, order);
+        order.setBuyerName(orderForm.getName());
+        order.setBuyerAddress(orderForm.getAddress());
+        order.setBuyerPhone(orderForm.getPhone());
+        order.setBuyerOpenid(orderForm.getOpenid());
         order.setOrderDetailList(orderDetailList);
         return order;
     }

@@ -11,4 +11,5 @@ public class ProjectUrlConfig {
     private String wechatMpAuthorize;
     private String wechatOpenAuthorize;
     private String sell;
+    private String returnUrl;
 }

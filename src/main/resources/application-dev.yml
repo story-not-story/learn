@@ -12,8 +12,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: 65093270
-    url: jdbc:mysql://127.0.0.1:3306/sell?characterEncoding=utf-8&useSSL=false
+    password: 123456
+    url: jdbc:mysql://192.168.3.137:3306/sell?characterEncoding=utf-8&useSSL=false
   jpa:
     hibernate:
       ddl-auto: update
@@ -28,23 +28,25 @@ logging:
     com.imooc.sell.Data2Object.mapper: trace
 wechat:
   # 公众账号, 授权
-  mpAppId: wxd898fcb01713c658
-  mpAppSecret:
+  mpAppId: wx150cec0373e2136a
+#  mpAppId: wxd898fcb01713c658
+  mpAppSecret: 0d5f3fd54b9bd492327725d6cd5e0b71
 
   # 开放平台,  卖家扫码登录用
-  openAppId: wx6ad144e54af67d87
-  openAppSecret: 91a2ff6d38a2bbccfb7e9xxxxxx
+  openAppId: wx150cec0373e2136a
+  openAppSecret: 0d5f3fd54b9bd492327725d6cd5e0b71
 
-  # 支付/商户号
+  # 支付/商户号 借
+#  mchId: 1483469312
   mchId: 1483469312
-  mchKey: 06C56A89949D617xxxxxxxxxxx
+  mchKey: 098F6BCD4621D373CADE4E832627B4F6
   # 发起支付不需要证书, 退款需要
-  keyPath:
-  notifyUrl: http://sell.natapp4.cc/sell/pay/notify
+  keyPath: /Users/yd/githubproject/sell/doc/h5.p12
+  notifyUrl: http://mango.nat100.top/sell/pay/notify
   templateId:
-    orderStatus: e-Cqq67QxD6YNI41iRiqawEYdFavW_7pc7LyEMb-yeQ
-
+    orderStatus: aPSq5LuZrd1kF2K1eQYnzFEHsfhxObZNLVHyU2kvi08
 project-url:
-  wechatMpAuthorize: http://lsx888.natapp1.cc
-  wechatOpenAuthorize: http://lsx888.natapp1.cc
+  wechatMpAuthorize: http://mango.nat100.top
+  wechatOpenAuthorize: http://mango.nat100.top
   sell: /seller
+  returnUrl: /buyer/order/list

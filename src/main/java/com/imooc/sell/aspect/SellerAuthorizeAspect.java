@@ -2,6 +2,7 @@ package com.imooc.sell.aspect;
 
 import com.imooc.sell.constant.RedisConstant;
 import com.imooc.sell.enums.ErrorCode;
+import com.imooc.sell.exception.SellerAuthException;
 import com.imooc.sell.exception.UserException;
 import com.imooc.sell.util.CookieUtil;
 import com.mysql.cj.util.StringUtils;
@@ -33,12 +34,12 @@ public class SellerAuthorizeAspect {
         Cookie cookie = CookieUtil.get(attributes.getRequest(), CookieUtil.TOKEN);
         if (cookie == null){
             log.error("【用户cookie校验】cookie没有token");
-            throw new UserException(ErrorCode.OWNER_ERROR);
+            throw new SellerAuthException();
         }
         String redisValue = redisTemplate.opsForValue().get(String.format(RedisConstant.TOKEN, cookie.getValue()));
         if (StringUtils.isNullOrEmpty(redisValue)){
             log.error("【用户cookie校验】redis没有token");
-            throw new UserException(ErrorCode.OWNER_ERROR);
+            throw new SellerAuthException();
         }
     }
 }

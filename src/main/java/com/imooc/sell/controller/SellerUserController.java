@@ -20,6 +20,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Controller
@@ -52,8 +54,10 @@ public class SellerUserController {
         return new ModelAndView("user/login");
     }
     @GetMapping("/login")
-    public ModelAndView login(){
-        return new ModelAndView("user/login");
+    public ModelAndView login(@RequestParam(required = false) String openid){
+        Map<String, String> map = new HashMap<>();
+        map.put("openid", openid);
+        return new ModelAndView("user/login", map);
     }
     @PostMapping("/login")
     public ModelAndView login(@Valid SellerInfo user,HttpServletRequest request, HttpServletResponse response){

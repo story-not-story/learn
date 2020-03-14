@@ -8,21 +8,21 @@ import javax.validation.constraints.NotNull;
 
 @Data
 public class OrderForm {
-    @JsonProperty(value = "name")
+    
     @NotNull(message = "买家姓名必填")
-   private String buyerName;
+   private String name;
 
-    @JsonProperty(value = "phone")
+    
     @NotNull(message = "买家电话必填")
-    private String buyerPhone;
+    private String phone;
 
-    @JsonProperty(value = "address")
+    
     @NotNull(message = "买家地址必填")
-    private String buyerAddress;
+    private String address;
 
-    @JsonProperty(value = "openid")
+    
     @NotNull(message = "买家openid必填")
-    private String buyerOpenid;
+    private String openid;
 
     @NotNull(message = "购物车")
     private String items;
